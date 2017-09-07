@@ -56,3 +56,5 @@ commands and instructions on creating the application.
 10. git commit -m "Adding professor scaffold"
 11. bin/rails db:migrate
 12.
+13. bin/rails generate scaffold course name:string description:text
+    department:string
