@@ -11,19 +11,17 @@
         </div>
     <% end %>
 
-    <div class="field">
-        <%= form.label :professor_id %>
-        <%= form.text_field :professor_id, id: :section_professor_id %>
-    </div>
 
     <div>
+        <%= form.label :professor_id %>
         <%= form.select :professor_id, @professors.collect { |p| [p.name, p.id] }, include_blank: true %>
 
 
-    <div>
-    <%= form.select :course_id, Course.all.collect { |c| [ c.name, c.id]},  include_blank: true   %>
-    </div>      
-    <div class="actions">
-        <%= form.submit %>
-    </div>
-<% end %>
+        <div>
+            <%= form.label :course_id %>
+            <%= form.select :course_id, Course.all.collect { |c| [ c.name, c.id]},  include_blank: true   %>
+        </div>
+        <div class="actions">
+            <%= form.submit %>
+        </div>
+    <% end %>
