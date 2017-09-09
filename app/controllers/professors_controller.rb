@@ -56,7 +56,7 @@ class ProfessorsController < ApplicationController
   def destroy
     @professor.destroy
     respond_to do |format|
-      format.html { redirect_to professors_url, notice: 'Professor was successfully destroyed.' }
+      format.html { redirect_to professors_url, notice: 'Professor was successfully deleted' }
       format.json { head :no_content }
     end
   end

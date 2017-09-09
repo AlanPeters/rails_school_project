@@ -7,18 +7,18 @@
     <tr>
       <th>Name</th>
       <th>Department</th>
-      <th colspan="3"></th>
+      <th colspan="2">Actions</th>
     </tr>
   </thead>
 
   <tbody>
     <% @professors.each do |professor| %>
-      <tr>
-        <td><%= professor.name %></td>
+        <tr class="<%= cycle('list_odd', 'list_even')%>" >
+        <td><%= link_to professor.name, professor %></td>
         <td><%= professor.department %></td>
-        <td><%= link_to 'Show', professor %></td>
         <td><%= link_to 'Edit', edit_professor_path(professor) %></td>
-        <td><%= link_to 'Destroy', professor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete', professor, method: :delete, data: 
+            { confirm: "Are you sure you want to delete professor #{professor.name}?" } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +26,4 @@
 
 <br>
 
-<%= link_to 'New Professor', new_professor_path %>
+<%= button_to 'Add', new_professor_path, method: :get %>

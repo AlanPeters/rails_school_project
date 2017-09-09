@@ -2,19 +2,19 @@
 
 
 
-###Assignment One
+# Assignment One
 
-##Abstract
+## Abstract
 
 
-##Introduction
+## Introduction
 
 The problem I am looking to investigate is the amount of time it takes to create
 a basic full-stack web longer application in Ruby on Rails. My hypothisis is
 that a full working app can be setup in as little as little as 20 hours
 including design of the application. 
 
-##Method/Measurement
+## Method/Measurement
 
 The method to develop this application is broken up into iterations. The first
 iteration is a very quick design and setup session. This includes setting up the basic
@@ -26,23 +26,25 @@ The second iteration will include using rails to setup the scaffolding for
 All time spent on the project will be logged below, along with a list of
 commands and instructions on creating the application. 
 
-##Results
+## Results
 
-##Conclusion
-
-
+## Conclusion
 
 
-#Time Log
-
-| Pomodoro # | Description                                   |
-| -----      | ----                                          |
-| 1          | Setup basic project, began README.            |
-| 2          | Basic ERD and Design Sketched out in notebook |
-| 3          | Finished design, added professor scaffold     |
 
 
-#Commands
+# Time Log
+
+Pomodoro #  Description
+1. Setup basic project, began README.
+2. Basic ERD and Design Sketched out in notebook
+3. Finished design, added professor scaffold
+4. Added scaffold for sections. Added a select list for courses and professor to the add section view
+5. Worked on cleaning up the Professors page
+6. Added additional CSS to the professors page
+
+
+# Commands
 
 1. rails new School
 2. cd school
@@ -58,3 +60,10 @@ commands and instructions on creating the application.
 12.
 13. bin/rails generate scaffold course name:string description:text
     department:string
+14. bin/rails generate scaffold Section professor:belongs_to course:belongs_to
+15.
+
+## Sources
+1. www.w3schools.com
+2. 
+3. 
