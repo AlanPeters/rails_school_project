@@ -15,6 +15,8 @@ class SectionsController < ApplicationController
   # GET /sections/new
   def new
     @section = Section.new
+    @courses = Course.all 
+    @professors = Professor.all
   end
 
   # GET /sections/1/edit
