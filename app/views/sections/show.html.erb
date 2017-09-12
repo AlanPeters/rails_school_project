@@ -1,14 +1,30 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Professor:</strong>
-  <%= @section.professor.name %>
+    <strong>Semester:</strong>
+    <%= @section.semester %>
 </p>
 
 <p>
-  <strong>Course:</strong>
-  <%= @section.course.name %>
+    <strong>Classroom:</strong>
+    <%= @section.classroom %>
 </p>
+
+<p>
+    <strong>Time:</strong>
+    <%= @section.time.strftime("%l:%M %p") %>
+</p>
+
+<p>
+    <strong>Professor:</strong>
+    <%= @section.professor.name %>
+</p>
+
+<p>
+    <strong>Course:</strong>
+    <%= @section.course.name %>
+</p>
+
 
 <%= link_to 'Edit', edit_section_path(@section) %> |
 <%= link_to 'Back', sections_path %>

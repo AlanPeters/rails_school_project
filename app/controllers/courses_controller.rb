@@ -10,6 +10,17 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.json
   def show
+
+    sections = @course.sections
+    @professors = {};
+    sections.each do |section|
+      if @professors[section.professor].nil?
+        @professors[section.professor] = [];
+      end
+      @professors[section.professor].push section
+    end
+
+
   end
 
   # GET /courses/new
@@ -62,13 +73,13 @@ class CoursesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_course
-      @course = Course.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_course
+    @course = Course.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def course_params
-      params.require(:course).permit(:name, :description, :department)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def course_params
+    params.require(:course).permit(:name, :description, :department)
+  end
 end

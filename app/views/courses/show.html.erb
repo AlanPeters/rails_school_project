@@ -1,18 +1,32 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @course.name %>
+<strong>Name:</strong>
+<%= @course.name %>
 </p>
 
 <p>
-  <strong>Description:</strong>
-  <%= @course.description %>
+<strong>Department:</strong>
+<%= @course.department %>
 </p>
 
 <p>
-  <strong>Department:</strong>
-  <%= @course.department %>
+<strong>Description:</strong>
+<%= @course.description %>
+</p>
+
+<p>
+<strong>Taught By:</strong>
+<ul>
+    <% @professors.each do |professor,sections|  %>
+        <li><%= professor.name %></li>
+        <ul>
+            <% sections.each do |section| %>
+                    <li><%= section.time %></li>
+            <% end %>
+        </ul>
+    <% end %>
+</ul>
 </p>
 
 <%= link_to 'Edit', edit_course_path(@course) %> |

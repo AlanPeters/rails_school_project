@@ -10,13 +10,10 @@ class ProfessorsController < ApplicationController
   # GET /professors/1
   # GET /professors/1.json
   def show
+    @profs_courses = {};
     @sections = @professor.sections
     @numberOfSections = @sections.length
-    @courses = Array.new;
-    @sections.each {|section|
-      @courses.push section.course
-    }
-    @courses.uniq!
+    @courses = @professor.courses.uniq
   end
 
   # GET /professors/new

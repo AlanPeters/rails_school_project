@@ -17,13 +17,13 @@
   </div>
 
   <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description, id: :course_description %>
+    <%= form.label :department %>
+    <%= form.text_field :department, id: :course_department %>
   </div>
 
   <div class="field">
-    <%= form.label :department %>
-    <%= form.text_field :department, id: :course_department %>
+    <%= form.label :description %>
+    <%= form.text_area :description, id: :course_description, rows: 12, cols: 70 %>
   </div>
 
   <div class="actions">

@@ -12,7 +12,16 @@
 <h3>Courses</h3>
 <ul>
     <% @courses.each do |course| %>
-        <li><%= course.name %></li>
+        <li><%= link_to course.name, course %></li>
+        <ul>
+            <% course.sections.each do |section| %>
+                <% if section.professor === @professor %>
+                <li>
+                <%= link_to section.time.strftime("%l:%M %p"), section
+                %></li>
+                <% end %>
+            <% end %>
+        </ul>
     <% end %>
 </ul>
 <%= link_to 'Edit', edit_professor_path(@professor) %> |

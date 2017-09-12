@@ -13,15 +13,27 @@
 
 
     <div>
+        <%= form.label :semester %>
+        <%= form.text_field :semester %>
+    </div>
+    <div>
+        <%= form.label :classroom %>
+        <%= form.text_field :classroom %>
+    </div>
+    <div>
+        <%= form.label :time %>
+        <%= form.time_field :time %>
+    </div>
+    <div>
         <%= form.label :professor_id %>
         <%= form.select :professor_id, @professors.collect { |p| [p.name, p.id] }, include_blank: true %>
 
-
-        <div>
-            <%= form.label :course_id %>
-            <%= form.select :course_id, Course.all.collect { |c| [ c.name, c.id]},  include_blank: true   %>
-        </div>
-        <div class="actions">
-            <%= form.submit %>
-        </div>
-    <% end %>
+    </div> 
+    <div>
+        <%= form.label :course_id %>
+        <%= form.select :course_id, Course.all.collect { |c| [ c.name, c.id]},  include_blank: true   %>
+    </div>
+    <div class="actions">
+        <%= form.submit %>
+    </div>
+<% end %>

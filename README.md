@@ -61,7 +61,11 @@ Pomodoro #  Description
 13. bin/rails generate scaffold course name:string description:text
     department:string
 14. bin/rails generate scaffold Section professor:belongs_to course:belongs_to
-15.
+15. 
+16. bin/rails generate migration AddTimeColumnsToSection time:time
+    semester:string
+17. bin/rails generate migration AddClassroomToSection classroom:string
+18. bin/rails db:migrate
 
 ## Sources
 1. www.w3schools.com

@@ -1,6 +1,6 @@
 class SectionsController < ApplicationController
   before_action :set_section, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_course_professor_list, only: [:new, :edit, :update, :create]
   # GET /sections
   # GET /sections.json
   def index
@@ -15,8 +15,6 @@ class SectionsController < ApplicationController
   # GET /sections/new
   def new
     @section = Section.new
-    @courses = Course.all 
-    @professors = Professor.all
   end
 
   # GET /sections/1/edit
@@ -64,13 +62,17 @@ class SectionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_section
-      @section = Section.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_section
+    @section = Section.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def section_params
-      params.require(:section).permit(:professor_id, :course_id)
-    end
+  def set_course_professor_list 
+    @courses = Course.all 
+    @professors = Professor.all
+  end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def section_params
+    params.require(:section).permit(:professor_id, :course_id, :semester, :classroom, :time)
+  end
 end
