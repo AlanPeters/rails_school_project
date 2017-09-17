@@ -11,9 +11,15 @@ class ProfessorsController < ApplicationController
   # GET /professors/1.json
   def show
     @profs_courses = {};
-    @sections = @professor.sections
-    @numberOfSections = @sections.length
-    @courses = @professor.courses.uniq
+    sections = @professor.sections
+
+    sections.each do |section| 
+      if @profs_courses[section.course].nil?
+        @profs_courses[section.course] = [];
+      end
+      @profs_courses[section.course].push section
+
+    end
   end
 
   # GET /professors/new
@@ -66,13 +72,13 @@ class ProfessorsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_professor
-      @professor = Professor.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_professor
+    @professor = Professor.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def professor_params
-      params.require(:professor).permit(:name, :department)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def professor_params
+    params.require(:professor).permit(:name, :department)
+  end
 end

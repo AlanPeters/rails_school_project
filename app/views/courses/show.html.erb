@@ -19,10 +19,10 @@
 <strong>Taught By:</strong>
 <ul>
     <% @professors.each do |professor,sections|  %>
-        <li><%= professor.name %></li>
+        <li><%= link_to professor.name, professor %></li>
         <ul>
             <% sections.each do |section| %>
-                    <li><%= section.time %></li>
+                    <li><%= link_to section.time.strftime("%l:%M %p"), section %></li>
             <% end %>
         </ul>
     <% end %>
