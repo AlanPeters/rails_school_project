@@ -174,25 +174,25 @@ n where n is the number of Sections a Professor is teaching.
   end
 ```
 ```diff
- <h3>Courses</h3>
-  <ul>
- -    <% @courses.each do |course| %>
- +    <% @profs_courses.each do |course,sections| %>
-          <li><%= link_to course.name, course %></li>
-          <ul>
- -            <% course.sections.each do |section| %>
- -                <% if section.professor === @professor %>
- +            <% sections.each do |section| %>
-                  <li>
- -                <%= link_to section.time.strftime("%l:%M %p"), section
- -                %></li>
- -                <% end %>
- +                    <%= link_to section.time.strftime("%l:%M %p"), section
- +                    %></li>
-              <% end %>
-          </ul>
-      <% end %>
- </ul>
+<h3>Courses</h3>
+ <ul>
+-    <% @courses.each do |course| %>
++    <% @profs_courses.each do |course,sections| %>
+         <li><%= link_to course.name, course %></li>
+         <ul>
+-            <% course.sections.each do |section| %>
+-                <% if section.professor === @professor %>
++            <% sections.each do |section| %>
+                 <li>
+-                <%= link_to section.time.strftime("%l:%M %p"), section
+-                %></li>
+-                <% end %>
++                    <%= link_to section.time.strftime("%l:%M %p"), section
++                    %></li>
+             <% end %>
+         </ul>
+     <% end %>
+</ul>
 ```
 
 As a small change to the design, I decided to display the time for each Section
