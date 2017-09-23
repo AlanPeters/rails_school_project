@@ -1,5 +1,5 @@
 class ProfessorsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user! 
   before_action :set_professor, only: [:show, :edit, :update, :destroy]
 
   # GET /professors
@@ -69,6 +69,20 @@ class ProfessorsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to professors_url, notice: 'Professor was successfully deleted' }
       format.json { head :no_content }
+    end
+  end
+
+
+  def search
+    searchString = params[:search];
+    if(searchString.nil? || searchString.length < 3) 
+      @professors = []
+    else 
+      @professors = Professor.where("name like (?)", "%#{searchString}%").limit(5)
+    end 
+    respond_to do |format|
+      format.json { render json: @professors }
+      format.html { render :index}
     end
   end
 
