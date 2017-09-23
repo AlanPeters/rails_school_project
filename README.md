@@ -364,7 +364,10 @@ iteration.
 * Add root to: "professors#index" to routes.rb
 * $rails generate devise User
 * $rails db:migrate
+* Add before_action: authenticate_user! to professor controller 
+* Reboot server
 * 
+* $rails generate devise:views
 
 
 
