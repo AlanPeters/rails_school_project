@@ -368,7 +368,13 @@ iteration.
 * Reboot server
 * 
 * $rails generate devise:views
+* Add authenticate to sessions and courses controllers
+* Add logout to layout
 
+
+## Sources
+1. https://github.com/plataformatec/devise
+2. 
 
 
 

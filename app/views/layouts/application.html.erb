@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>School</title>
-    <%= csrf_meta_tags %>
+    <head>
+        <title>School</title>
+        <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    </head>
 
-  <body class="<%= controller.controller_name %>">
-    <%= yield %>
-  </body>
+    <body class="<%= controller.controller_name %>">
+        <div id="banner"> 
+            <% if(user_signed_in?) %> 
+                <%= link_to 'Log out', destroy_user_session_path, method: :delete %>
+            <% end %>
+        </div>
+        <%= yield %>
+    </body>
 </html>

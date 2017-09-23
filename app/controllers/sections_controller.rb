@@ -1,4 +1,5 @@
 class SectionsController < ApplicationController
+  before_action :authenticate_user! 
   before_action :set_section, only: [:show, :edit, :update, :destroy]
   before_action :set_course_professor_list, only: [:new, :edit, :update, :create]
   # GET /sections
