@@ -192,7 +192,7 @@ n where n is the number of Sections a Professor is teaching.
              <% end %>
          </ul>
      <% end %>
-</ul>
+ </ul>
 ```
 
 As a small change to the design, I decided to display the time for each Section
@@ -351,3 +351,27 @@ iteration.
 
 ### Author
 * Alan Peters
+
+
+
+
+
+# Assigment 2 
+
+##Log
+* Added devise to gem file
+* $bundle install
+* Add root to: "professors#index" to routes.rb
+* $rails generate devise User
+* $rails db:migrate
+* 
+
+
+
+
+
+
+
+
+
+
