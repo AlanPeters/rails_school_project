@@ -73,6 +73,21 @@ class CoursesController < ApplicationController
     end
   end
 
+  def search
+    searchString = params[:search];
+    if(searchString.nil? || searchString.length < 3) 
+      @courses = []
+    else 
+      @courses = Course.where("name like (?)", "%#{searchString}%").limit(5)
+    end 
+    respond_to do |format|
+      format.json { render json: @professors }
+      format.html { render :index}
+    end
+  end
+
+
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_course

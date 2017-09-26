@@ -370,6 +370,13 @@ iteration.
 * $rails generate devise:views
 * Add authenticate to sessions and courses controllers
 * Add logout to layout
+*
+* Added search route for professors
+* Added search controller
+* Added search textbox to view
+*
+* Added search functionality for courses
+* 
 
 
 ## Sources
