@@ -2,9 +2,15 @@
 
 <h1>Sections</h1>
 
+<%= form_tag search_sections_path, method: :get do %> 
+    <%= text_field_tag :search %>
+    <%= submit_tag 'Search' %>
+<% end %>
+
 <table>
   <thead>
     <tr>
+      <th>Time</th>
       <th>Professor</th>
       <th>Course</th>
       <th colspan="3"></th>
@@ -14,6 +20,7 @@
   <tbody>
     <% @sections.each do |section| %>
       <tr>
+        <td><%= link_to section.time.strftime("%l:%M %p"), section %></td>
         <td><%= section.professor.name %></td>
         <td><%= section.course.name %></td>
         <td><%= link_to 'Show', section %></td>

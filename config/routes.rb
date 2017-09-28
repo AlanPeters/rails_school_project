@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :sections
+  resources :sections do 
+    collection do 
+      get "search"
+    end
+  end
+
   resources :courses do 
     collection do 
       get "search"
