@@ -4,35 +4,35 @@
 
 
 .professors {
-    table {
-        border-collapse: collapse;
-        border: 2px solid black;
-    }
+ /*   table {*/
+        //border-collapse: collapse;
+        //border: 2px solid black;
+    //}
 
-    table th {
-        border: 2px solid black;
-        padding-left: 3px;
-        padding-right: 3px;
-        min-width: 100px;
-        text-align: left;
-    }
+    //table th {
+        //border: 2px solid black;
+        //padding-left: 3px;
+        //padding-right: 3px;
+        //min-width: 100px;
+        //text-align: left;
+    //}
 
-    table tr td {
-        padding: 5px;
-        vertical-align: top;
-        border-left: 2px solid black;
-    }
-    .list_even {
-        background: #ddd;
-    }
-    .list_odd {
-        background: #fff;
-    }
+    //table tr td {
+        //padding: 5px;
+        //vertical-align: top;
+        //border-left: 2px solid black;
+    //}
+    //.list_even {
+        //background: #ddd;
+    //}
+    //.list_odd {
+        //background: #fff;
+    //}
 
-    a, a:visited {
-        color: blue;
-    }
-    a:visited { 
-        color: purple; 
-    }
+    //a, a:visited {
+        //color: blue;
+    //}
+    //a:visited { 
+        //color: purple; 
+ /*   }*/
 }
