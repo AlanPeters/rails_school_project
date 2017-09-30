@@ -6,14 +6,34 @@
 
         <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
         <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     </head>
 
     <body class="<%= controller.controller_name %>">
-        <div id="banner"> 
-            <% if(user_signed_in?) %> 
-                <%= link_to 'Log out', destroy_user_session_path, method: :delete %>
-            <% end %>
+        <div id="container" class="container">
+            <div class="row">
+                <div id="sidebar" class="col-xs-3">
+                    <%= render 'layouts/navigation' %>
+                </div>
+                <div id="content" class="col-xs-9">
+                    <%= yield %>
+                </div>
+            </div> 
         </div>
-        <%= yield %>
+
+
     </body>
 </html>
+
+
+
+
+
+
+
+
+<%#<div id="banner"> %>
+    <%#<% if(user_signed_in?) %> 
+        <%#<%= link_to 'Log out', destroy_user_session_path, method: :delete %>
+        <%#<% end %>
+    <%#</div>%>
