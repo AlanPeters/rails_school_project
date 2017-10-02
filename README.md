@@ -1,393 +1,280 @@
+
 # README
+
+# Assigment 2 
 
 ## Abstract
 
-This project is designed to test a hypothesis about the Ruby on Rails framework.
-The hypothesis is that because Ruby on Rails provides a tested and common web
-framework, applications can be developed quickly and modified in iterations
-without needing exhaustive design sessions since the architecture is well
-defined. This project evaluates the hypothesis by capturing the development
-process of a Ruby on Rails applications as it goes from simple requirements and
-design to a functioning web application. This project, by successfully creating
-a simple working application through iterative development, proved the
-hypothesis.
+This project is an extension of a previous assignment which created a basic web
+application modeling a school using the Ruby on Rails framework. This assignment
+tests the hypothesis that large amounts of functionality can be added to the
+application quickly because of the size of the Ruby on Rails community. This
+hypothesis is tested by implementing new functionality through the use of free,
+open-source plugins and libraries. The hypothesis was proven true by quickly
+taking the app from a bare-bones app to a stylized application with search,
+validation, and authentication features. 
 
 ## Introduction
 
-Ruby on Rails gives the developer a framework to quickly create websites using
-the Ruby language. One of the tools the framework provides is a set of
-generators which allows a developer to create a   scaffolding for the code from
-the command line. The generated code fits into the MVC architecture using the
-Rails nomenclature and structure. I hypothesize that because Ruby on Rails
-provides a tested and proven web framework, applications can be developed
-quickly and modified in iterations without needing exhaustive design sessions
-since the architecture is well defined. 
+Extending on the work of the first assignment, I am now going to expand the
+application with additional functionality. The functionality will include,
+adding search functions for each of the three entities already created, adding
+an authentication layer, improving the user experience using CSS, and validating
+data fields before they are committed to the database. My hypothesis for this
+experiment is that because each of these features is so common, libraries have
+been built specifically for the Ruby on Rails framework and can be implemented
+with minimum custom development.
 
 ## Method/Measurement
 
-To test this hypothesis, I have broken the development of the application into
-phases. Each phase has minimal deliverables and is designed to be implemented
-rapidly before beginning the next sections. Each iteration described below,
-except for the first, was driven off of requirements and lessons learned from
-the previous phase. 
+Like the first assignment, the hypothesis will be tested in iterations. Each
+iteration will focus on a single piece of the functionality. I will begin each
+iteration by looking for libraries or plugins already built for the feature.
+Once I choose one, it will be implemented following the best practices for the
+library or tool. If the implementation of one feature breaks another feature,
+the iteration will include time to fix the application, so all implemented
+features are working at the end of each iteration. 
 
-The first iteration is a rapid design and setup session. This iteration includes
-setting up the basic project, creating a simple entity relationship diagram
-(ERD) for the model, and sketching out some rough screenshots or wireframes.
+For the first iteration, I will implement authentication. Breaking from the
+above method, I will implement Devise without searching for additional packages
+because it was suggested by the customer (professor) for the product. 
 
-The second iteration will include using rails to set up the scaffolding for the
-initial application based off of the simple ERD. Then making modifications to
-the views so that I can enter data for all entities created in the database.
+Next, I will focus on adding search functionality. This will give a user the
+ability to search for courses, professors, or sections. Courses and professors
+will be searchable by name, and sections can be searched by either the professor
+or the course name. 
 
-The next iteration will focus on modifying views and controllers to conform to
-the quick sketches of the screens for the application.
+After adding these two front-end features, I will turn to improving the user
+experience by adding CSS to the website. This will also include modifying the
+application layout to include basic navigation. 
 
-Along the way, I will list potential improvements and ideas (Appendix C). I will make any
-necessary design changes during the iteration. If time allows, I will plan and
-execute additional iterations to incorporate left-over enhancements. 
+Finally, I will add validation to the model to ensure all of the fields captured
+in web forms are valid before committing them to the database. This will test
+for both simple user import mistakes and test some basic business logic. 
 
-I will maintain a list of the commands and instructions used to create this
-application and include it in an appendix (Appendix A). Git version control will be used to
-manage the code base during development. 
 
-## Results
+## Results 
 
-### Iteration 1:
+### Iteration 1: Authentication 
 
-The first iteration was time-boxed to two quick 25-minute work sections with a
-five-minute break in between. In this time, I sketched out a quick ERD and
-screenshots (Appendix B) for each entity. I annotated these screenshots
-during the second iteration. At the end of the second session, I ran the first
-five commands to set up a new Rails project and add the generated code to an
-empty git repository. It turned out that the ‘git init’ command was unnecessary
-because the rails new command created an empty git repository. I used Agile Web
-Development with Rails 5 [1] to come up with the commands for this iteration.
-
-### Iteration 2:
-
-I dove into coding with Iteration two. I used the first 25-minute session to
-start the server and make sure rails was running, then added the first scaffold
-for Professors. Professors’ only attributes are a name and a department, both
-strings. I committed the code changes before running the migration, and after
-running the migration, I found rails had created additional files which I needed
-to add to Git. I committed these new files with a temporary message then
-performed an interactive rebase to squash them into the previous commit. I then
-created a couple of test Professor entries and tried updating, and deleting them
-to see if all of the scaffolding worked correctly. I then added the courses and
-the section scaffolds with quick commits in between to capture the state after
-each migration. 
-
-I used the next session to update the new section view to add a select list for
-both Professors and Courses. 
+This iteration proved easier than expected. Normally, to implement an
+authentication layer, a developer would have to design and develop the full
+stack, but with Devise all it took was a couple of commands. First I added the
+ruby gem for Devise to my gems file then ran a bundle install. Devise requires a
+root path to be defined, so I added a path to professors.
 
 ```ruby
-<%= form.select :professor_id, @professors.collect { |p| [p.name, p.id] }, include_blank: true %>
-<%= form.select :course_id, Course.all.collect { |c| [ c.name, c.id]},  include_blank: true   %>
+root to: "professors#index"
 ```
 
-I tested the view and controllers by adding several Sections and reviewing them
-in the Sections list. After this simple testing was complete, I added new fields
-to the Section entity. I had included these fields in the original design but
-overlooked them when I created the scaffold with the generator. I added these
-fields using the Rails migrate command then updating the view templates for the
-Section form and Section show pages. I modified the Sections controller to add
-time, classroom, and semester fields to the params.require statement. 
+
+Then I added the authentication action to each controller that I expect to hold
+protected content. 
 
 ```ruby
-def section_params
-    params.require(:section).permit(:professor_id, :course_id, :semester, :classroom, :time)
-end
+before_action :set_course, only: [:show, :edit, :update, :destroy]
 ```
-I created additional sections to verify all the fields were captured and
-displayed correctly.
+Adding this automatically redirected the user to a sign-in/signup page
 
-### Iteration 3:
+![Design and ERD](/README_IMAGES/basic_login.jpg?raw=true)
 
-In iteration three, I focused on the display of the entities. The most difficult
-part of this iteration was building the hierarchy views for both the Professors
-view and the Courses view. I found this difficult because it required the
-natural hierarchy to be reversed. For Professors, the hierarchy to get to
-courses is Professor -> Section -> Course. The view required Professor -> Course
--> Section. First, I added a relation to the Professor model which specifies
-that the Professor has many courses through Sections, I added a similar route to
-Courses. 
+Next I added a quick logout button to the layout file so that I could test the
+full default function of Devise. 
+
+```diff
+-  <body class="<%= controller.controller_name %>">
+-    <%= yield %>
+-  </body>
++    <body class="<%= controller.controller_name %>">
++        <div id="banner"> 
++            <% if(user_signed_in?) %> 
++                <%= link_to 'Log out', destroy_user_session_path, method: :delete %>
++            <% end %>
++        </div>
++        <%= yield %>
++    </body>
+```
+
+ With this work complete, I moved on to the next iteration.
+
+### Iteration 2: Search
+
+I did not expect search to be arduous to add, and a quick search online for
+search methods confirmed this theory. It looked like most people implemented
+their own search functions in the controller rather than using a gem or other
+library. I decided to dive right in and try to see how much code it would take
+to add search to professors. 
+
+First, I wrote the method in the controller. I wanted it to be able to return
+either JSON or HTML for static or dynamic searching. In less than 20 minutes I
+had come up with this:
 
 ```ruby
-class Course < ApplicationRecord
-    has_many :sections
-    has_many :professors, through: :sections
-end
-
-class Professor < ApplicationRecord
-    has_many :sections
-    has_many :courses, through: :sections
-end
-```
-
-Then I could enumerate the Professor’s distinct Courses using
-professor.courses.uniq. Then I iterated over this enumeration in the view to get
-each course. For each Course, I created a sub-list of all the sections using
-course.sections. This results in ruby printing sections for the courses which
-are not related to the original professor. I did a quick-fix to update the list
-by modifying the view to check if section.professor equaled the current
-Professor and only then printed the list item. 
-
-```ruby 
-    <% @courses.each do |course| %>
-          <li><%= course.name %></li>
-          <li><%= link_to course.name, course %></li>
-          <ul>
-              <% course.sections.each do |section| %>
-                  <% if section.professor === @professor %>
-                  <li>
-                  <%= link_to section.time.strftime("%l:%M %p"), section
-                  %></li>
-                  <% end %>
-              <% end %>
-          </ul>
-      <% end %>
-  </ul>
-```
-
-After I swapped to the courses view to make the same update, I had a nagging
-feeling that this would require up to n^2 calls to the database by going from
-Professors to Sections to Courses then back to Sections and Professors. And it
-would retrieve objects that would never be displayed. This is a case of
-pre-optimization, but I revisited the code to see if I could create the list
-with fewer calls to the persistence layer. The resulting code used a combination
-of a hash and arrays built from the list of the Professor’s Sections. This hash
-is passed to the view and the number of calls to the database becomes closer to
-n where n is the number of Sections a Professor is teaching.
-
-```ruby
-   def show
-    @profs_courses = {};
-    sections = @professor.sections
-
-    sections.each do |section| 
-      if @profs_courses[section.course].nil?
-        @profs_courses[section.course] = [];
-      end
-      @profs_courses[section.course].push section
-
+  def search
+    searchString = params[:search];
+    if(searchString.nil? || searchString.length < 3) 
+      @professors = []
+    else 
+      @professors = Professor.where("name like (?)", "%#{searchString}%").limit(5)
+    end 
+    respond_to do |format|
+      format.json { render json: @professors }
+      format.html { render :index}
     end
   end
 ```
+
+I decided to only show results if more than three characters are in the search
+string. I will probably change this later. I took advantage of the fact that the
+index page already had JSON and HTML views and all I had to do was set the same
+@professors variable for them to use, then call render. 
+
+I then added a route to routes.rb for the search path.
+
 ```diff
-<h3>Courses</h3>
- <ul>
--    <% @courses.each do |course| %>
-+    <% @profs_courses.each do |course,sections| %>
-         <li><%= link_to course.name, course %></li>
-         <ul>
--            <% course.sections.each do |section| %>
--                <% if section.professor === @professor %>
-+            <% sections.each do |section| %>
-                 <li>
--                <%= link_to section.time.strftime("%l:%M %p"), section
--                %></li>
--                <% end %>
-+                    <%= link_to section.time.strftime("%l:%M %p"), section
-+                    %></li>
-             <% end %>
-         </ul>
-     <% end %>
- </ul>
+-  resources :professors
++  resources :professors do
++    collection do
++      get "search"
++    end 
++  end
 ```
 
-As a small change to the design, I decided to display the time for each Section
-in the Professor and course views. When I tested these new views, an error arose
-because not all Sections had a time in the database. In order to remedy this for
-future additions, I added a validation for the presence of the time field to the
-model. To fix current entries in the test database, I used the command qlite3
-db/development.sqlite3 to enter into the database. Then I ran: UPDATE sections
-SET time = ‘2000-01-01 00:00:00’ WHERE time IS NULL; to update all of the
-currently null time entries to 12:00 am. Rails stores time fields in a date
-column and defaults the date part to 1/1/2000. 
-
-
-
-The last work I did as part of this iteration was to refactor the sections
-controller code slightly to make it more DRY. I had created the calls to set the
-@courses and @professors variables in each method making them less flexible if I
-needed to change them. Now I removed them and put them in a new method. I
-registered this new method with a :before_action which Rails calls before
-running the new, create, update, and edit methods. I was prompted to make this
-change because of an issue where I was expecting render() to call the route
-controller, but instead, it only calls the views and requires all of the proper
-variables to be already set. 
+I was immediately able to test the routes using JSON by visiting
+http://localhost:3000/professors/search.json?search=test. To finish off the
+feature, I added a quick search box to the professor index view using the rails
+form helpers.
 
 ```ruby
-before_action :set_course_professor_list, only: [:new, :edit, :update, :create]
-...
+<%= form_tag search_professors_path, method: :get do %> 
+    <%= text_field_tag :search %>
+    <%= submit_tag 'Search' %>
+<% end %>
+```
 
-...
-def set_course_professor_list 
-    @courses = Course.all 
-    @professors = Professor.all
-end
+![Design and ERD](/README_IMAGES/basic_search.jpg?raw=true)
+
+I used very similar code for the courses and sections controllers with the
+sections controller a bit modified to support searching courses from two
+different tables. 
+
+```ruby
+  def search
+    searchString = params[:search];
+    @sections = [] 
+    unless(searchString.nil? || searchString.length < 3) 
+      professors = Professor.where("name like (?)", "%#{searchString}%")
+      courses = Course.where("name like (?)", "%#{searchString}%")
+      professors.each do |professor| 
+        @sections.push(professor.sections)
+      end 
+      courses.each do |course|
+        @sections.push(course.sections)
+      end
+      @sections.flatten!
+      @sections.uniq!
+      
+    end 
+    respond_to do |format|
+      format.json { render json: @sections }
+      format.html { render :index}
+    end
+  end
+```
+
+### Iteration 3: CSS
+
+To get the site looking professional as quickly as possible, I turned to
+Bootstrap. I installed the Bootstrap library using a gem and included it in my
+application.scss and application.js files. From there, I began modifying all of
+the views to use the bootstrap classes to apply the bootstrap CSS to them. I
+modified the application.html.erb file in the layouts folder heavily to get the
+desired look. I ended up adding a header with a navigation bar including Sign
+Out and Edit Profile buttons if you are logged in and a Sign-In and Sign Up
+button if you are logged out. I also added a search bar in the far right of this
+top nav bar and removed the previously created search bars. Finally, I added a
+navigation partial for the three entities and added it as a side navigation bar.
+There are too many changes to cohesively summarize here as I spent 5-6 hours in
+this iteration. The results should speak for themselves. Below is the professors
+view before and after. 
+
+![Design and ERD](/README_IMAGES/professors_before.jpg?raw=true)
+![Design and ERD](/README_IMAGES/professors_after.jpg?raw=true)
+
+And the new page is responsive.
+
+![Design and ERD](/README_IMAGES/professors_responsivejpg?raw=true)
+
+The only code I will include here is the totality of the CSS I wrote. 
+
+```css
+@import “bootstrap”;
+
+#content {
+    padding: 15px !important;
+}
+```
+
+### Iteration 4
+
+The fourth iteration was the quickest iteration. I was able to add validation
+for all fields in the database quickly. I did not add any additional validation
+to the tables created by Devise because they are already vetted before
+insertion. First I added validation to the Professors model:
+
+```ruby
+  validates :name, :department,  presence: true
+  validates :name, length: { minimum: 3 }
+  validates :department, length: { minimum: 3 }
+ 
+  validates :department, format: { with: /\A[a-z A-Z]+\z/ }
+
+  #only one professor with the same name in the department
+  validates :name, uniqueness: { scope: :department }
+```
+
+The validations are pretty much self-explanatory and easy to read. The most
+difficult one may be the regex which validates to make sure the department only
+contains a-Z and spaces.
+
+The courses validation is so similar that it does not warrant mention here.
+Below are a couple of the validations that I added to the sections controller
+which allows it to validate unique conditions across multiple columns in the
+database. Some of the same columns are used in more than one unique validation.
+
+```ruby
+  #a professor cannot teach two classes at the same time
+  validates :professor, uniqueness: { scope: [:time, :semester] }
+
+  #the class cannot be taught in the same classroom at the same time 
+  validates :classroom, uniqueness: { scope: [:time, :semester] }
 ```
 
 ## Conclusion
 
-Ruby on Rails had already made most of the architecture choices for me which
-allowed me to develop the site and make design changes rapidly. In traditional
-development, architectural choices set the foundation for the rest of
-development and a change to the architecture may require significant amounts of
-time to correct. This potential loss of time requires lots of effort to be spent
-on solidifying an architecture before moving on to other aspects of coding. With
-Rails, I was confident that the architecture is thoroughly tested and proved and
-I was able to jump right into coding the application with minimal design.
-Because I followed a strict MVC pattern, I could change pieces of the
-application without sending ripples through the entire application. 
+Ruby on Rails has an extensive user base with a large library of custom code
+modules. For this assignment, I was able to leverage this community to add
+functionality to the application quickly. The level of sophistication added to
+the application by using these base libraries and plugins would not be possible
+with traditional custom development. Some pieces did not require libraries
+because of how simple they were to add with custom code. Validation and
+searching were both added to the application with only a few dozen lines of code
+each. Devise added an entire authentication framework with only a few commands,
+and bootstrap allowed the entire application to be stylized by adding classes to
+mostly existing elements and with practically no plain CSS. This proved the
+hypothesis that significant features can be added with minimal development
+because of the large Ruby on Rails community. 
 
-I tested this methodology by building the application in short iterations with
-minimal planning. When I found new requirements, I was able to incorporate them
-directly into the code without extensive design. Rails provided all but the
-highest-level functions, so I did not have to worry about building objects with
-persistence or their relationships. The scaffolds created by running ruby
-commands allowed me to customize the code to get the desired look rather than
-starting with a blank canvas. This mentality helped reduce some of the fear
-associated with starting a new file and provided immediate feedback on the
-changes made. This exercise proved my hypothesis that applications can be
-developed quickly and modified in iterations without needing exhaustive design
-sessions since the architecture is well defined. 
-
-
-
-## Sources
-
-1. Ruby, Sam. Agile Web Development with Rails 5 (Kindle Location 2154). Pragmatic Bookshelf. Kindle Edition.
-2. www.w3schools.com
-3. api.rubyonrails.org/.
-4. ruby-doc.org
-5. https://stackoverflow.com/a/10189374
-6. https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
-
-
-
-## Feedback for the Instructor
-
-This assignment was very informative because it forced me to develop an
-application in Ruby on Rails. I liked how loosely the requirements were defined
-because it allows a bit of latitude to explore the architecture and add custom
-pieces.
-
-I think the hardest part of the assignment was trying to parallel the paper and
-the code development. Especially early on in a project with a single developer,
-it is easy to jump around and make lots of disconnected changes to a code base
-and throw away changes or redo sections before committing code. This process is
-relatively fluid, and I found it difficult to map it to a linear progression
-through the paper. If I were to write an instruction book on how to put this
-application together, I would have to redo the entire application and probably
-do one or two more iterations before getting it to settle into a linear set of
-instructions. Also, the paper took about as much time as the assignment. Once I
-wrote a section of the paper, I did not want to make any more changes to the
-code because it would require the paper to change as well. I think a different
-type of documentation would be helpful.
-
-I also believe that with a different kind of documentation, you could shorten
-the assignment duration to one week and then you could assign several shorter
-iterations of the application. You could even crowdsource changes to the
-application through peer-review sessions at the end of each assignment.
-
-I learned a lot more about letting go to my code and not understanding the
-entirety of the architecture. I learned through doing. I had gone through about
-50% of the example application in the Ruby on Rails book but not having a one to
-one guide for an assignment helped push me into uncharted waters where I made
-errors and had to search for answers and documentation. It was like a test where
-I found out everything I did not know. I am looking forward to the next
-iteration.
-
-# Appendix A: Commands
-
-1.    rails new School
-2.    cd school
-3.    git init #already initialized
-4.    git add .
-5.    git commit -m "Initial Commit"
-6.    rails server
-7.    rails generate scaffold professor name:string department:string 
-8.    git add .
-9.    git commit -m "Adding professor scaffold"
-10.    bin/rails db:migrate
-11.    git commit –m fixup
-12.    git rebase –i HEAD~2
-13.    bin/rails generate scaffold course name:string description:text department:string
-14.    git commit –am “Adding course scaffold”
-15.    bin/rails generate scaffold Section professor:belongs_to course:belongs_to
-16.    git commit –am “Adding Sections Scaffold”
-17.    git commit -am "Updating the Sections Views"
-18.    git commit -am "Updating the professors view"
-19.    git commit -am adding courses to view professor
-20.    bin/rails generate migration AddTimeColumnsToSection time:time semester:string
-21.    bin/rails generate migration AddClassroomToSection classroom:string
-22.    bin/rails db:migrate
-23.    git commit -am "adding columns to section. Modifying professor and course
-       views"
-24.    sqlite3 db/development.sqlite3
-25.    UPDATE sections SET time = ‘2000-01-01 00:00:00’ WHERE time IS NULL;
-26.    .quit –exit sqlite3
-27.    git commit -am "Updating controller for sessions"
-
-# Appendix B: Design and ERD
-
-![Design and ERD](/README_IMAGES/ERD_And_Design_1.jpg?raw=true)
-![Design and ERD](/README_IMAGES/Design_2.jpg?raw=true)
-
-
-# Appendix C: Things to Add
+# Appendix A: Things to Add
 1.    Semesters Table
 2.    Departments Table
   1.    Link Professors and Courses to Departments
   2.    Update controllers and views such that Courses can only be taught by professors of the same department. 
-3.    Header
-4.    Left Menu
 5.    Home page
-6.    Updated Styles
 7.    Sections Links to Professor and Course
 8.    Course links instead of “show”
 9.    Button for course “Add” 
 
 ### Author
 * Alan Peters
-
-
-
-
-
-# Assigment 2 
-
-##Log
-* Added devise to gem file
-* $bundle install
-* Add root to: "professors#index" to routes.rb
-* $rails generate devise User
-* $rails db:migrate
-* Add before_action: authenticate_user! to professor controller 
-* Reboot server
-* 
-* $rails generate devise:views
-* Add authenticate to sessions and courses controllers
-* Add logout to layout
-*
-* Added search route for professors
-* Added search controller
-* Added search textbox to view
-*
-* Added search functionality for courses
-* 
-
-
-## Sources
-1. https://github.com/plataformatec/devise
-2. 
-
-
-
-
-
-
-
-
 
