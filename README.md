@@ -76,7 +76,7 @@ before_action :set_course, only: [:show, :edit, :update, :destroy]
 ```
 Adding this automatically redirected the user to a sign-in/signup page
 
-![Design and ERD](/README_IMAGES/basic_login.jpg?raw=true)
+![Basic Login](/README_IMAGES/basic_login.jpg?raw=true)
 
 Next I added a quick logout button to the layout file so that I could test the
 full default function of Devise. 
@@ -152,7 +152,7 @@ form helpers.
 <% end %>
 ```
 
-![Design and ERD](/README_IMAGES/basic_search.jpg?raw=true)
+![Basic Search](/README_IMAGES/basic_search.jpg?raw=true)
 
 I used very similar code for the courses and sections controllers with the
 sections controller a bit modified to support searching courses from two
@@ -198,12 +198,12 @@ There are too many changes to cohesively summarize here as I spent 5-6 hours in
 this iteration. The results should speak for themselves. Below is the professors
 view before and after. 
 
-![Design and ERD](/README_IMAGES/professors_before.jpg?raw=true)
-![Design and ERD](/README_IMAGES/professors_after.jpg?raw=true)
+![Professors Before](/README_IMAGES/professors_before.jpg?raw=true)
+![Professors After](/README_IMAGES/professors_after.jpg?raw=true)
 
 And the new page is responsive.
 
-![Design and ERD](/README_IMAGES/professors_responsivejpg?raw=true)
+![Responsive Professors](/README_IMAGES/professors_responsive.jpg?raw=true)
 
 The only code I will include here is the totality of the CSS I wrote. 
 
