@@ -1,4 +1,5 @@
 class SectionsController < ApplicationController
+  before_action :authenticate_user! 
   before_action :set_section, only: [:show, :edit, :update, :destroy]
   before_action :set_course_professor_list, only: [:new, :edit, :update, :create]
   # GET /sections
@@ -61,6 +62,28 @@ class SectionsController < ApplicationController
     end
   end
 
+  def search
+    searchString = params[:search];
+    @sections = [] 
+    unless(searchString.nil? || searchString.length < 3) 
+      professors = Professor.where("name like (?)", "%#{searchString}%")
+      courses = Course.where("name like (?)", "%#{searchString}%")
+      professors.each do |professor| 
+        @sections.push(professor.sections)
+      end 
+      courses.each do |course|
+        @sections.push(course.sections)
+      end
+      @sections.flatten!
+      @sections.uniq!
+      
+    end 
+    respond_to do |format|
+      format.json { render json: @sections }
+      format.html { render :index}
+    end
+  end
+  
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_section
