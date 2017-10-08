@@ -15,5 +15,13 @@
   <%= @student.idnumber %>
 </p>
 
+<h3>Professors</h3>
+<ul>
+    <% @student.professors.each do |professor| %>
+        <li><%= professor.name %></li>
+    <% end %>
+</ul>
+
+
 <%= link_to 'Edit', edit_student_path(@student) %> |
 <%= link_to 'Back', students_path %>
