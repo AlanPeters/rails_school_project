@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
-  resources :enrollments
-  resources :students
+  resources :students do
+    resources :enrollments, only: [:index, :new, :create]
+  end
+
+  resources :enrollments, only: [:show, :edit, :update, :destroy]
+
+
   devise_for :users
   resources :sections do 
     collection do 

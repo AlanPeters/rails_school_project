@@ -13,7 +13,7 @@
     <% @enrollments.each do |enrollment| %>
       <tr>
         <td><%= link_to 'Show', enrollment %></td>
-        <td><%= link_to 'Edit', edit_enrollment_path(enrollment) %></td>
+        <td><%= link_to 'Edit', edit_student_enrollment_path(enrollment) %></td>
         <td><%= link_to 'Destroy', enrollment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -22,4 +22,4 @@
 
 <br>
 
-<%= link_to 'New Enrollment', new_enrollment_path %>
+<%= link_to 'New Enrollment', new_student_enrollment_path %>

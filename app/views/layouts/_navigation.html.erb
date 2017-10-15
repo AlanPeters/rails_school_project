@@ -2,11 +2,14 @@
         <li class="nav-item">
             <%= link_to 'Professors', professors_path, class: "nav-link #{ "active" if current_page?(professors_path) }" %>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
             <%= link_to 'Courses', courses_path, class: "nav-link #{ "active" if current_page?(courses_path) }" %>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
             <%= link_to 'Sections', sections_path, class: "nav-link #{ "active" if current_page?(sections_path) }" %>
+        </li>
+        <li class="nav-item">
+            <%= link_to 'Students', students_path, class: "nav-link #{ "active" if current_page?(students_path) }" %>
         </li>
     </ul>
 
