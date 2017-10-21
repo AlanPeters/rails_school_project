@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     resources :enrollments, only: [:index, :new, :create]
   end
 
-  resources :enrollments, only: [:show, :edit, :update, :destroy]
+  resources :enrollments, only: [:update, :destroy]
 
 
   devise_for :users

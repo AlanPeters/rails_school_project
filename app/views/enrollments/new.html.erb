@@ -1,5 +1,31 @@
 <h1>New Enrollment</h1>
+<% if @enrollment.errors.any? %>
+    <div id="error_explanation">
+        <h2><%= pluralize(@enrollment.errors.count, "error") %> prohibited this enrollment from being saved:</h2>
 
-<%= render 'form', enrollment: @enrollment %>
+        <ul>
+            <% @enrollment.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
+<%= @student.name %>
+
+
+<% @sections.each do |section| %>
+    <div>
+        <h4><%= section.course.name %></h4>
+        <p><%= section.professor.name %></p>
+        <span><%= section.time %></span>
+        <%= form_with model: [ @student, @enrollment ] do |form|  %>
+            <%= form.hidden_field :section_id, value: section.id  %>
+            <%= form.hidden_field :student_id, value: @student.id  %>
+            <%= form.submit "Enroll" %>
+        <% end %>
+    </div>
+<% end %>
+
+
 
 <%= link_to 'Back', student_enrollments_path %>
