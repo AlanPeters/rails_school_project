@@ -10,22 +10,27 @@
         </ul>
     </div>
 <% end %>
-<%= @student.name %>
 
-
-<% @sections.each do |section| %>
-    <div>
-        <h4><%= section.course.name %></h4>
-        <p><%= section.professor.name %></p>
-        <span><%= section.time %></span>
-        <%= form_with model: [ @student, @enrollment ] do |form|  %>
-            <%= form.hidden_field :section_id, value: section.id  %>
-            <%= form.hidden_field :student_id, value: @student.id  %>
-            <%= form.submit "Enroll" %>
-        <% end %>
-    </div>
-<% end %>
-
+<ul>
+    <% @courses.each do |course, professors| %>
+        <li><%= course.name %></li>
+        <ul>
+            <% professors.each do |professor, sections| %>
+                <li><%= professor.name %></li>
+                <ul>
+                    <% sections.each do |section| %>
+                        <li> 
+                            <%= form_with model: [ @student, @enrollment ] do |form|  %>
+                                <%= form.hidden_field :section_id, value: section.id  %>
+                                <%= form.hidden_field :student_id, value: @student.id  %>
+                                <%= section.time.strftime("%l:%M %p")  %>    | <%= form.submit "Enroll", class: "btn-link" %>
+                            <% end %></li>
+                    <% end %>
+                </ul>
+            <% end %>
+        </ul> 
+    <% end %>
+</ul>
 
 
 <%= link_to 'Back', student_enrollments_path %>

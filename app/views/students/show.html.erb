@@ -7,7 +7,7 @@
 
 <p>
   <strong>Status:</strong>
-  <%= @student.status %>
+  <%= @student.status = 1 ? 'Enrolled' : 'Not Enrolled' %>
 </p>
 
 <p>
@@ -15,12 +15,31 @@
   <%= @student.idnumber %>
 </p>
 
-<h3>Professors</h3>
-<ul>
-    <% @student.professors.each do |professor| %>
-        <li><%= professor.name %></li>
-    <% end %>
-</ul>
+
+<h3>My Classes</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Course Name</th>
+            <th>Class time</th>
+            <th>Professor</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% @student.enrollments.each do |enrollment| %>
+            <tr>
+                <td><%= enrollment.section.course.name %></td>
+                <td><%= enrollment.section.time.strftime("%l:%M %p") %></td>
+                <td><%= enrollment.section.professor.name %></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+
+
+
 
 <%= link_to 'Enroll in Classes', student_enrollments_path(@student) %> | 
 <%= link_to 'Edit', edit_student_path(@student) %> |

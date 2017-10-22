@@ -15,8 +15,20 @@ class EnrollmentsController < ApplicationController
   # GET /enrollments/new
   def new
     @enrollment = Enrollment.new
-    @sections = Section.all
     @student = Student.find(params[:student_id])
+    sections = Section.all - @student.sections
+    @courses = {}
+    sections.each do |section| 
+      if @courses[section.course].nil?
+        @courses[section.course] = {}
+      end
+      if @courses[section.course][section.professor].nil?
+        @courses[section.course][section.professor] = [];
+      end
+      @courses[section.course][section.professor].push section
+    end 
+
+
   end
 
   # GET /enrollments/1/edit
@@ -27,8 +39,22 @@ class EnrollmentsController < ApplicationController
   # POST /enrollments.json
   def create
     @enrollment = Enrollment.new(enrollment_params)
-    @sections = Section.all
     @student = Student.find(params[:student_id])
+    sections = Section.all - @student.sections
+
+    @courses = {}
+    sections.each do |section| 
+      if @courses[section.course].nil?
+        @courses[section.course] = {}
+      end
+      if @courses[section.course][section.professor].nil?
+        @courses[section.course][section.professor] = [];
+      end
+      @courses[section.course][section.professor].push section
+    end 
+
+
+
     respond_to do |format|
       if @enrollment.save
         format.html { redirect_to student_enrollments_url(@student), notice: 'Enrollment was successfully created.' }
