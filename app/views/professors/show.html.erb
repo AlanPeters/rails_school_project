@@ -1,13 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-<strong>Name:</strong>
-<%= @professor.name %>
+    <strong>Name:</strong>
+    <%= @professor.name %>
 </p>
 
 <p>
-<strong>Department:</strong>
-<%= @professor.department %>
+    <strong>Department:</strong>
+    <%= @professor.department %>
 </p>
 <h3>Courses</h3>
 <ul>
@@ -16,8 +16,13 @@
         <ul>
             <% sections.each do |section| %>
                 <li>
-                    <%= link_to section.time.strftime("%l:%M %p"), section
-                    %></li>
+                    <%= link_to section.time.strftime("%l:%M %p"), section %>
+                    <ul>
+                        <% section.students.each do |student| %>
+                            <li><%= student.name %></li>
+                        <% end %>
+                    </ul>
+                </li>
             <% end %>
         </ul>
     <% end %>

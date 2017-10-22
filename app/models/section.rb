@@ -1,6 +1,10 @@
 class Section < ApplicationRecord
   belongs_to :professor
   belongs_to :course
+
+  has_many :enrollments
+  has_many :students, through: :enrollments
+
   validates :time, presence: true
   validates :semester, presence: true
   validates :semester, presence: true

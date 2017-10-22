@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  enrolledDate: 2017-10-07 18:57:18
+  student: one
+  section: one
+
+two:
+  enrolledDate: 2017-10-07 18:57:18
+  student: two
+  section: two
